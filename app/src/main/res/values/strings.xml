@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Telstra Exercise</string>
+    <string name="Title">No Title</string>
+    <string name="response_error">Parsing Error</string>
+    <string name="Description">No Data Available.</string>
+    <string name="error_message">Something went wrong. Pull Down To Refresh</string>
+    <string name="loading">Loading. Please Wait.</string>
+
+</resources>
