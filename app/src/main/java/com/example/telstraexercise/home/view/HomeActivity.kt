@@ -13,6 +13,7 @@ import com.example.telstraexercise.network_component.ApiCall
 import com.example.telstraexercise.home.model.ListData
 import com.example.telstraexercise.home.presenter.HomeScreenPresenterImpl
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.error_view.*
 
 class HomeActivity : AppCompatActivity(), HomeContract.HomeScreenViewInterface {
     private lateinit var mMainScreenPresenter: HomeScreenPresenterImpl
@@ -62,6 +63,10 @@ class HomeActivity : AppCompatActivity(), HomeContract.HomeScreenViewInterface {
         listRecyclerView.visibility = View.GONE
         loading.visibility = View.GONE
         errorView.visibility = View.VISIBLE
+        if(volleyError.cause.toString().contains("UnknownHostException")){
+            errorText.text = "Please, Check Internet Connection."
+        }
+
         refreshContainer.isRefreshing = false
     }
 }
