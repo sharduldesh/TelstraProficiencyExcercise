@@ -1,15 +1,16 @@
 package com.example.telstraexercise.home.presenter
 
 import android.content.Context
-import android.widget.Toast
+import android.util.Log
 import com.android.volley.VolleyError
-import com.example.telstraexercise.R
 import com.example.telstraexercise.home.HomeContract
 import com.example.telstraexercise.network_component.ListItemInterface
 import com.example.telstraexercise.network_component.ApiCall
 import com.example.telstraexercise.home.model.ListData
 import com.example.telstraexercise.utility.Constant
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonParseException
+import com.google.gson.JsonSyntaxException
 
 class HomeScreenPresenterImpl(private val mApiCall: ApiCall) :
     HomeContract.HomeScreenPresenterImpl, ListItemInterface {
@@ -40,13 +41,18 @@ class HomeScreenPresenterImpl(private val mApiCall: ApiCall) :
 
     /** callback method for successful reponse  **/
     override fun onSuccess(response: String) {
-
+        val gson = GsonBuilder().create()
         try{
-            val gson = GsonBuilder().create()
             val listData = gson.fromJson(response, ListData::class.java)
             mListItemView?.showListDetails(listData)
-        }catch (ex:Exception){
-            Toast.makeText(mContext,mContext?.getString(R.string.response_error),Toast.LENGTH_SHORT)?.show()
+        }catch(parseExc: JsonParseException){
+            Log.e("Json Parse Exception", "Json Parse Exception: $parseExc")
+        }
+        catch(syntaxExc: JsonSyntaxException){
+            Log.e("Json Syntax Exception", "Json Syntax Exception: $syntaxExc")
+        }
+        catch (ex:Exception){
+            Log.e("Exception", "Exception: $ex")
         }
     }
 
